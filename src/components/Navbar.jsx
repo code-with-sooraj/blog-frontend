@@ -8,6 +8,7 @@ const Navbar = () => {
 
   const toggleMode = () => {
     setDarkMode(!darkMode);
+    console.log(darkMode);
     document.documentElement.classList.toggle("dark");
   };
 
@@ -40,8 +41,8 @@ const Navbar = () => {
         </div>
 
         {/* Dark Mode Toggle */}
-        <button onClick={toggleMode} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 cursor-pointer" >
-          {darkMode ? <Sun className="text-yellow-500" /> : <Moon className="text-gray-900" />}
+        <button onClick={toggleMode} className="p-2 rounded-full dark:bg-white  bg-gray-700 cursor-pointer" >
+          {darkMode ? <Sun className="text-white dark:text-black" /> : <Moon className="text-white dark:text-black" />}
         </button>
       </div>
     </nav>

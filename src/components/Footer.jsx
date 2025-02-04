@@ -8,7 +8,7 @@ const Footer = () => {
         {/* About */}
         <div>
           <h2 className="text-lg font-semibold dark:text-white">About</h2>
-          <p className="text-sm">
+          <p className="text-sm dark:text-white">
             MyBlog is your go-to platform for insightful articles and discussions. Stay informed with our latest posts.
           </p>
         </div>
@@ -17,9 +17,9 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold dark:text-white">Quick Links</h2>
           <ul className="space-y-2">
-            <li><Link to="/" className="transition-colors delay-75 hover:text-blue-400">Home</Link></li>
-            <li><Link to="/blog" className="transition-colors delay-75 hover:text-blue-400">Blog</Link></li>
-            <li><Link to="/contact" className="transition-colors delay-75 hover:text-blue-400">Contact</Link></li>
+            <li><Link to="/" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Home</Link></li>
+            <li><Link to="/blog" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Blog</Link></li>
+            <li><Link to="/contact" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Contact</Link></li>
           </ul>
         </div>
 
@@ -27,16 +27,16 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold dark:text-white">Category</h2>
           <ul className="space-y-2">
-            <li><Link to="/category/tech" className="hover:text-blue-400">Tech</Link></li>
-            <li><Link to="/category/lifestyle" className="hover:text-blue-400">Lifestyle</Link></li>
-            <li><Link to="/category/travel" className="hover:text-blue-400">Travel</Link></li>
+            <li><Link to="/category/tech" className="hover:text-blue-400 dark:text-white">Tech</Link></li>
+            <li><Link to="/category/lifestyle" className="hover:text-blue-400 dark:text-white">Lifestyle</Link></li>
+            <li><Link to="/category/travel" className="hover:text-blue-400 dark:text-white">Travel</Link></li>
           </ul>
         </div>
 
         {/* Newsletter */}
         <div>
           <h2 className="text-lg font-semibold dark:text-white">Newsletter</h2>
-          <p className="text-sm mb-2">Subscribe to get the latest updates.</p>
+          <p className="text-sm mb-2 dark:text-white">Subscribe to get the latest updates.</p>
           <div className="flex relative">
             <input
               type="email"
@@ -52,12 +52,12 @@ const Footer = () => {
       </div>
 
       {/* Copyright & Policies */}
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
+      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm dark:text-white">
         <p>&copy; {new Date().getFullYear()} MyBlog. All rights reserved.</p>
         <div className="mt-2 space-x-4">
-          <Link to="/terms" className="transition-colors delay-75 hover:text-blue-400">Terms of Use</Link>
-          <Link to="/privacy" className="transition-colors delay-75 hover:text-blue-400">Privacy Policy</Link>
-          <Link to="/cookies" className="transition-colors delay-75 hover:text-blue-400">Cookies Policy</Link>
+          <Link to="/terms" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Terms of Use</Link>
+          <Link to="/privacy" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Privacy Policy</Link>
+          <Link to="/cookies" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Cookies Policy</Link>
         </div>
       </div>
     </footer>
