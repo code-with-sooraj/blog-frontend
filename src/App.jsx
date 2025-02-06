@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./index.css";
 import Footer from "./components/Footer";
-
-const Home = () => <h1>Home Page</h1>;
+import Home from "./components/Home";
 const Blog = () => <h1>Blog Page</h1>;
 const SinglePost = () => <h1>Single Post</h1>;
 const Pages = () => <h1>Pages</h1>;

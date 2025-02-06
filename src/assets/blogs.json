@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 1",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Prabhat Kumar Raj",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    },
+    {
+        "id": 2,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 2",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Sourav Kumar",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    },
+    {
+        "id": 3,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 1",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Prabhat Kumar Raj",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    },
+    {
+        "id": 4,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 2",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Sourav Kumar",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    },
+    {
+        "id": 5,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 1",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Prabhat Kumar Raj",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    },
+    {
+        "id": 6,
+        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
+        "content": "This is the content of blog 2",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Sourav Kumar",
+        "date": "2022-01-01",
+        "tags": ["Technology", "Workplace"]
+    }
+]
