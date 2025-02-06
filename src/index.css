@@ -2,3 +2,26 @@
 *{
     font-family: Poppins, sans-serif;
 }
+.tags{
+    color: #4B6BFB;
+    font-family: "Iceberg", serif;
+}
+/*medium-width responsiveness */
+@media (min-width: 650px) and (max-width: 1023.99px){
+    .cards-container{
+        grid-template-columns: repeat(3,1fr);
+    }
+    .blog-title,.blog-author{
+        font-size:14px;
+    }
+}
+
+/*small-width responsiveness */
+@media (min-width: 325px) and (max-width: 649.99px){
+    .cards-container{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .blog-title,.blog-author{
+        font-size:12px;
+    }
+}
