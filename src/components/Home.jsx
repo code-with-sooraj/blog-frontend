@@ -4,7 +4,7 @@ import BlogCard from './BlogCard'
 
 function Home() {
   return (
-    <div className='flex w-full items-center justify-center'>
+    <div className='flex w-full items-center justify-center py-3'>
         <div className="container w-5/6 flex flex-col gap-4">
             <h2 className='font-medium text-2xl'>Latest Blogs</h2>
             <div className="grid gap-2 grid-cols-4 cards-container">
