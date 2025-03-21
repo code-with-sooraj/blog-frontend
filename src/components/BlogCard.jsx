@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const BlogCard = ({ title, content, blogImage, author, date, tags }) => {
+const BlogCard = ({ title, content, blogImage, author, date, tags, upvote }) => {
   const navigate = useNavigate();
 
   // Function to generate a slug from the blog title
@@ -21,7 +21,8 @@ const BlogCard = ({ title, content, blogImage, author, date, tags }) => {
     >
       <img src={blogImage} alt={title} className="rounded-md" />
       <div className="tags">{tags[0]}</div>
-      <div className="font-medium blog-title">{title}</div>
+      <div className="font-medium blog-title">{title} <span> &nbsp; ⬆️{upvote}</span>
+      </div>
       <div className="flex justify-between items-center blog-author">
         <div>{author}</div>
         <div>{date}</div>

@@ -124,13 +124,13 @@ const Navbar = () => {
             </button>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Login</h2>
             <form onSubmit={handleLogin} className="flex flex-col">
-              <input type="text" name="username" placeholder="Enter Username" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" required />
-              <input type="password" name="password" placeholder="Enter Password" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" required />
+              <input type="text" name="username" placeholder="Enter Username" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" required />
+              <input type="password" name="password" placeholder="Enter Password" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" required />
               <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Login</button>
             </form>
             <div className="flex justify-between mt-4">
-              <button onClick={() => { setForgotOverlay(true); setLoginOverlay(false); }} className="text-red-500">Forgot Password</button>
-              <button onClick={() => { setSignUpOverlay(true); setLoginOverlay(false); }} className="text-red-500">Sign Up</button>
+              <button onClick={() => { setForgotOverlay(true); setLoginOverlay(false); }} className="text-red-500 mb-0.5">Forgot Password</button>
+              <button onClick={() => { setSignUpOverlay(true); setLoginOverlay(false); }} className="text-red-500 mb-0.5">Sign Up</button>
             </div>
           </div>
         </div>
@@ -145,9 +145,13 @@ const Navbar = () => {
             </button>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Forgot Password</h2>
             <form className="flex flex-col">
-              <input type="email" placeholder="Enter Email" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white" required />
+              <input type="email" placeholder="Enter Email" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" required />
               <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Reset Password</button>
             </form>
+            <div className="flex justify-between mt-4">
+              <button onClick={() => { setLoginOverlay(true); setForgotOverlay(false); }} className="text-red-500 mb-0.5">Login</button>
+              <button onClick={() => { setSignUpOverlay(true); setForgotOverlay(false); }} className="text-red-500 mb-0.5">Sign Up</button>
+            </div>
           </div>
         </div>
       )}
@@ -165,8 +169,11 @@ const Navbar = () => {
               <input type="email" placeholder="Email" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" name='email' required />
               <input type="password" placeholder="enter password" className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${error? "border-2 border-red-700": "border-none"}`} name='pass' required />
               <input type="password" placeholder="confirm password" className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${error? "border-2 border-red-700": "border-none"}`} name='cpass' onKeyUp={comparePassword} required />
-              <button type="submit" className="py-2 bg-green-500 text-white rounded-md">Create Account</button>
+              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Create Account</button>
             </form>
+            <div className="flex justify-between mt-4">
+              <button onClick={() => { setLoginOverlay(true); setSignUpOverlay(false); }} className="text-red-500 mb-0.5">Login</button>
+            </div>
           </div>
         </div>
       )}

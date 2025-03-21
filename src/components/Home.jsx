@@ -17,6 +17,7 @@ function Home() {
                         author={blog.author}
                         date={blog.date}
                         tags={blog.tags}
+                        upvote={blog.upvote}
                     />
                 ))}
             </div>
