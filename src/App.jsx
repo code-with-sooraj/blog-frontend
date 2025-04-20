@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import "./index.css";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
-const Blog = () => <h1>Blog Page</h1>;
+import BlogDetail from "./components/BlogDetails";
 const SinglePost = () => <h1>Single Post</h1>;
 const Pages = () => <h1>Pages</h1>;
 const Contact = () => <h1>Contact</h1>;
@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:blogSlug" element={<BlogDetail />} />
         <Route path="/post" element={<SinglePost />} />
         <Route path="/pages" element={<Pages />} />
         <Route path="/contact" element={<Contact />} />
