@@ -11,52 +11,102 @@
     },
     {
         "id": 2,
-        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
-        "content": "This is the content of blog 2",
+        "title": "Exploring the Future of AI in Everyday Life",
+        "content": "AI is increasingly shaping our world, from personalized recommendations to smart assistants. Embracing this technology can simplify tasks and improve efficiency. <br> It's crucial to understand the ethical implications and ensure transparency in AI systems.",
         "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
-        "author": "Sourav Kumar",
-        "date": "2022-01-01",
-        "tags": ["Technology", "Workplace"],
-        "upvote": 8
-    },
-    {
-        "id": 3,
-        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
-        "content": "This is the content of blog 1",
-        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
-        "author": "Prabhat Kumar Raj",
-        "date": "2022-01-01",
-        "tags": ["Technology", "Workplace"],
-        "upvote": 10
-    },
-    {
-        "id": 4,
-        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
-        "content": "This is the content of blog 2",
-        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
-        "author": "Sourav Kumar",
-        "date": "2022-01-01",
-        "tags": ["Technology", "Workplace"],
+        "author": "Aditi Sharma",
+        "date": "2022-03-15",
+        "tags": ["AI", "Technology"],
         "upvote": 12
     },
     {
-        "id": 5,
-        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
-        "content": "This is the content of blog 1",
+        "id": 3,
+        "title": "Remote Work: The New Normal?",
+        "content": "Remote work has transformed the modern workplace, providing flexibility and better work-life balance. <br> But it also brings challenges in collaboration and productivity that companies must address with smart tools and strategies.",
         "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
-        "author": "Prabhat Kumar Raj",
-        "date": "2022-01-01",
-        "tags": ["Technology", "Workplace"],
-        "upvote": 6
+        "author": "Rahul Mehta",
+        "date": "2022-04-02",
+        "tags": ["Remote Work", "Workplace"],
+        "upvote": 8
+    },
+    {
+        "id": 4,
+        "title": "Blockchain Basics: What You Need to Know",
+        "content": "Blockchain is more than just Bitcoin. It’s a revolutionary technology for secure, decentralized transactions. <br> This article breaks down the basics and how it could change sectors from finance to healthcare.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Sanya Kapoor",
+        "date": "2022-05-10",
+        "tags": ["Blockchain", "Technology"],
+        "upvote": 15
+    },
+    {
+        "id": 5,
+        "title": "Sustainable Tech: Innovations for a Greener Planet",
+        "content": "Green technology is paving the way for a more sustainable future. From solar panels to biodegradable gadgets, innovation is key to combating climate change.<br> Let’s dive into the most promising eco-tech of the decade.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Ankit Verma",
+        "date": "2022-06-21",
+        "tags": ["Sustainability", "Innovation"],
+        "upvote": 20
     },
     {
         "id": 6,
-        "title": "The Impact of Technology on the Workplace: How Technology is Changing",
-        "content": "This is the content of blog 2",
+        "title": "Cybersecurity Threats in the Digital Age",
+        "content": "As we move more of our lives online, cybersecurity is more important than ever. <br> Learn about common threats like phishing, ransomware, and how to protect yourself in the digital world.",
         "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
-        "author": "Sourav Kumar",
-        "date": "2022-01-01",
-        "tags": ["Technology", "Workplace"],
+        "author": "Meena Joshi",
+        "date": "2022-07-05",
+        "tags": ["Cybersecurity", "Digital"],
+        "upvote": 9
+    },
+    {
+        "id": 7,
+        "title": "How 5G Will Transform Communication",
+        "content": "5G technology promises lightning-fast internet and new opportunities for IoT and mobile communication. <br> Discover how this leap in connectivity could reshape industries and personal tech experiences.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Karan Patel",
+        "date": "2022-08-14",
+        "tags": ["5G", "Communication"],
+        "upvote": 14
+    },
+    {
+        "id": 8,
+        "title": "Education in the Digital Era",
+        "content": "Digital platforms are transforming education by making it more accessible and flexible. <br> Explore the benefits and potential pitfalls of e-learning in a rapidly evolving academic landscape.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Ritika Sen",
+        "date": "2022-09-30",
+        "tags": ["Education", "Technology"],
         "upvote": 7
-    }
+    },
+    {
+        "id": 9,
+        "title": "Wearable Technology: Beyond Fitness",
+        "content": "Smartwatches and fitness bands are just the beginning. Wearables are now monitoring health, detecting disease, and even enhancing productivity.<br> Here’s what’s next in wearable innovation.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Devansh Rao",
+        "date": "2022-10-12",
+        "tags": ["Wearables", "HealthTech"],
+        "upvote": 11
+    },
+    {
+        "id": 10,
+        "title": "Digital Nomads: Life on the Move",
+        "content": "The digital nomad lifestyle is gaining popularity as people embrace work-from-anywhere freedom.<br> Discover the pros, cons, and top destinations for digital nomads in 2023.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Ishita Bhatt",
+        "date": "2022-11-18",
+        "tags": ["Travel", "Remote Work"],
+        "upvote": 10
+    },
+    {
+        "id": 11,
+        "title": "Tech for Mental Health: A Growing Trend",
+        "content": "From meditation apps to virtual therapy, technology is reshaping how we manage mental health.<br> This article explores the tools available and how effective they really are.",
+        "blogImage": "https://vignan.ac.in/vignantest/departments/dep_assets/images/no-image.png",
+        "author": "Neeraj Yadav",
+        "date": "2022-12-22",
+        "tags": ["Health", "Mental Wellness"],
+        "upvote": 13
+    }    
 ]

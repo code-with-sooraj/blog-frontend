@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Sun, Moon, Search, Menu, X } from "lucide-react";
 import Cookies from "js-cookie";
+import axios from "axios";
 import '../index.css';
 
 const Navbar = () => {
@@ -12,6 +13,11 @@ const Navbar = () => {
   const [signUpOverlay, setSignUpOverlay] = useState(false);
   const [user, setUser] = useState(null);
   const [error,setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success,setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     const loggedInUser = Cookies.get("username");
@@ -29,63 +35,185 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const username = e.target.username.value;
-    Cookies.set("username", username, { expires: 1 });
-    setUser(username);
-    setLoginOverlay(false);
-  };
+    setError(false);
+    setErrorMessage("");
+    setFieldErrors({});
+    setLoading(true);
+  
+    const email = e.target.username.value;
+    const password = e.target.password.value;
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/auth/login', 
+        { email, password },
+        { withCredentials: true }
+      );
+      if (response.data.status === 200) {
+        setSuccess(true);
+        setError(false);
+        setErrorMessage(response.data.message);
+        Cookies.set("username", response.data.user.name, { expires: 1 });
+        setUser(response.data.user.name);
+        setLoginOverlay(false);
+      } else {
+        setSuccess(false);
+        setError(true);
+        setErrorMessage(response.data.message);
+      }
+    } catch (err) {
+      setSuccess(false);
+      setError(true);
+      const serverMsg = err.response?.data?.message || "Invalid credentials";
+      setErrorMessage(serverMsg);  
+      const errorFieldMap = {};
+      if (serverMsg.toLowerCase().includes("email")) errorFieldMap.email = true;
+      if (serverMsg.toLowerCase().includes("password")) errorFieldMap.password = true;
+      setFieldErrors(errorFieldMap);
+    } finally {
+      setLoading(false);
+    }
+  };  
 
   const handleLogout = () => {
+    setLoggingOut(true);
+    Cookies.remove("token");
     Cookies.remove("username");
     setUser(null);
+    setLoggingOut(false); 
   };
 
-  const handleSignUp = (e) =>{
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const pass = e.target.pass.value;
-    const cpass = e.target.cpass.value;
-    let data = new FormData();
-    data.append('name', name);
-    data.append('email',email);
-    data.append('pass',pass);
-    data.append('cpass',cpass);
-    console.log(data);
-  }
+    setError(false);
+    setErrorMessage("");
+    setFieldErrors({});
+    setLoading(true);
 
-  const comparePassword = (e) =>{
-    const cpass = e.target.value;
-    const pass = e.target.previousSibling.value;
-    console.log(pass,cpass);
-    if(pass === cpass){
-      setError(false);
-    }else{
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const password = e.target.pass.value;
+    const cpass = e.target.cpass.value;
+
+    if (password !== cpass) {
       setError(true);
+      setErrorMessage("Password does not match");
+      setFieldErrors({ pass: true, cpass: true });
+      setLoading(false);
+      return;
     }
-  }
+
+    try {
+      const data = { name, email, password };
+      const response = await axios.post('http://localhost:3000/api/v1/auth/signup', data, {
+        withCredentials: true,
+      });      
+
+      if (response.status === 201) {
+        setSuccess(true);
+        setError(false);
+        setErrorMessage(response.data.message);
+        setLoginOverlay(false);
+        setSignUpOverlay(false);
+        Cookies.set("username", email, { expires: 1 });
+        setUser(name);
+      } else {
+        setSuccess(false);
+        setError(true);
+        setErrorMessage(response.data.message);
+      }
+    } catch (err) {
+      setSuccess(false);
+      setError(true);
+      const serverMsg = err.response?.data?.message || "Something went wrong. Please try again.";
+      setErrorMessage(serverMsg);
+
+      const errorFieldMap = {};
+      if (serverMsg.toLowerCase().includes("email")) errorFieldMap.email = true;
+      if (serverMsg.toLowerCase().includes("name")) errorFieldMap.name = true;
+      if (serverMsg.toLowerCase().includes("password")) errorFieldMap.pass = true;
+
+      setFieldErrors(errorFieldMap);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <>
       <nav className="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-900">
-        <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">MyBlog</Link>
-
+        <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">AlgoReads</Link>
         <ul className="hidden md:flex space-x-6 text-gray-700 dark:text-gray-300">
-          <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
-          <li><Link to="/blog" className="hover:text-blue-500">Blog</Link></li>
-          <li><Link to="/post" className="hover:text-blue-500">Single Post</Link></li>
-          <li><Link to="/pages" className="hover:text-blue-500">Pages</Link></li>
-          <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "hover:text-blue-500"
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/blog"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "hover:text-blue-500"
+              }
+            >
+              Blog
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/post"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "hover:text-blue-500"
+              }
+            >
+              Single Post
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/pages"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "hover:text-blue-500"
+              }
+            >
+              Pages
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "hover:text-blue-500"
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
         </ul>
 
+
         <div className="flex items-center space-x-4">
-          <div className="relative hidden md:block">
+          {/* <div className="relative hidden md:block">
             <input type="text" placeholder="Search..." className="pl-8 pr-3 py-1 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
             <Search className="absolute left-2 top-2 text-gray-500 dark:text-gray-400" size={16} />
-          </div>
-
+          </div> */}
           <button onClick={toggleMode} className="p-2 rounded-full dark:bg-white bg-gray-700 cursor-pointer">
             {darkMode ? <Sun className="text-white dark:text-black" /> : <Moon className="text-white dark:text-black" />}
           </button>
@@ -104,7 +232,10 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
-
+      {loggingOut && (
+        <div className="border-4 border-white border-t-transparent rounded-full w-8 h-8 animate-spin backdrop-blur-md">
+        </div>
+      )}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-gray-100 dark:bg-gray-900 flex flex-col items-center space-y-4 py-6">
           <Link to="/" onClick={toggleMenu}>Home</Link>
@@ -124,10 +255,39 @@ const Navbar = () => {
             </button>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Login</h2>
             <form onSubmit={handleLogin} className="flex flex-col">
-              <input type="text" name="username" placeholder="Enter Username" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" required />
-              <input type="password" name="password" placeholder="Enter Password" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" required />
-              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Login</button>
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter Username"
+                value = "prabhat@gmail.com"
+                className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${
+                  fieldErrors.email ? "border-2 border-red-700" : "border-none"
+                }`}
+                required
+              />
+
+              <input
+                type="password"
+                name="password"
+                value="123"
+                placeholder="Enter Password"
+                className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${
+                  fieldErrors.password ? "border-2 border-red-700" : "border-none"
+                }`}
+                required
+              />
+
+              {(error || success) && (
+                <p className={`text-sm mb-2 ${success ? "text-green-500" : "text-red-500"}`}>
+                  {errorMessage}
+                </p>
+              )}
+
+              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">
+                {loading ? "Logging in..." : "Login"}
+              </button>
             </form>
+
             <div className="flex justify-between mt-4">
               <button onClick={() => { setForgotOverlay(true); setLoginOverlay(false); }} className="text-red-500 mb-0.5">Forgot Password</button>
               <button onClick={() => { setSignUpOverlay(true); setLoginOverlay(false); }} className="text-red-500 mb-0.5">Sign Up</button>
@@ -164,12 +324,72 @@ const Navbar = () => {
               <X size={24} />
             </button>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Create an account</h2>
-            <form className="flex flex-col" onSubmit={handleSignUp} autoComplete="false">
-              <input type="text" placeholder="Name" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" name='name' required />
-              <input type="email" placeholder="Email" className="p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none border-none" name='email' required />
-              <input type="password" placeholder="enter password" className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${error? "border-2 border-red-700": "border-none"}`} name='pass' required />
-              <input type="password" placeholder="confirm password" className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${error? "border-2 border-red-700": "border-none"}`} name='cpass' onKeyUp={comparePassword} required />
-              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Create Account</button>
+            <form className="flex flex-col" onSubmit={handleSignUp} autoComplete="off">
+              <input
+                type="text"
+                placeholder="Name"
+                className={`p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${fieldErrors.name ? "border-2 border-red-700" : "border-none"}`}
+                name="name"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className={`p-2 mb-3 border rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${fieldErrors.email ? "border-2 border-red-700" : "border-none"}`}
+                name="email"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Enter password"
+                className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${fieldErrors.pass ? "border-2 border-red-700" : "border-none"}`}
+                name="pass"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Confirm password"
+                className={`p-2 mb-3 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white outline-none ${fieldErrors.cpass ? "border-2 border-red-700" : "border-none"}`}
+                name="cpass"
+                required
+              />
+
+              {(error || success) && (
+                <p className={`text-sm mb-2 ${success ? "text-green-500" : "text-red-500"}`}>
+                  {errorMessage}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className={`py-2 bg-blue-500 text-white rounded-md flex justify-center items-center`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    ></path>
+                  </svg>
+                ) : (
+                  "Create Account"
+                )}
+              </button>
             </form>
             <div className="flex justify-between mt-4">
               <button onClick={() => { setLoginOverlay(true); setSignUpOverlay(false); }} className="text-red-500 mb-0.5">Login</button>

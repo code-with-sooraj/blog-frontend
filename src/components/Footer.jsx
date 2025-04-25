@@ -18,7 +18,7 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold dark:text-white">About</h2>
           <p className="text-sm dark:text-white">
-            MyBlog is your go-to platform for insightful articles and discussions. Stay informed with our latest posts.
+          AlgoReads is your go-to platform for insightful articles and discussions. Stay informed with our latest posts.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ const Footer = () => {
 
       {/* Copyright & Policies */}
       <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm dark:text-white">
-        <p>&copy; {new Date().getFullYear()} MyBlog. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} AlgoReads. All rights reserved.</p>
         <div className="mt-2 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
           <Link to="/terms" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Terms of Use</Link>
           <Link to="/privacy" className="transition-colors delay-75 hover:text-blue-400 dark:text-white">Privacy Policy</Link>

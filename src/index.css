@@ -17,7 +17,7 @@
 }
 
 /*small-width responsiveness */
-@media (min-width: 325px) and (max-width: 649.99px){
+@media (min-width: 319px) and (max-width: 649.99px){
     .cards-container{
         grid-template-columns: repeat(2,1fr);
     }
