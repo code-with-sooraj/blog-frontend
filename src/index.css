@@ -1,6 +1,7 @@
 @import "tailwindcss";
 *{
     font-family: Poppins, sans-serif;
+    transition: color 500ms ease-in-out;
 }
 .tags{
     color: #4B6BFB;

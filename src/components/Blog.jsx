@@ -17,7 +17,7 @@ function Blog() {
     <div className='flex w-full items-center justify-center py-3'>
         <div className="container w-5/6 flex flex-col gap-4">
             <div className="w-full flex justify-between mb-4">
-                <h2 className='font-medium text-2xl'>Latest Blogs</h2>
+                <h2 className='font-medium text-2xl'>Our Blogs</h2>
                 <div className="flex gap-2 items-center h-9">
                     <div className='w-auto h-full'>
                         <input

@@ -5,24 +5,31 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import BlogDetail from "./components/BlogDetails";
 import Blog from "./components/Blog";
-const SinglePost = () => <h1>Single Post</h1>;
+import UserContext from './CreateContext';
+import { useState } from "react";
+const Courses = () => <h1>Courses</h1>;
 const Pages = () => <h1>Pages</h1>;
 const Contact = () => <h1>Contact</h1>;
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
+  const [user, setUser] = useState(null);
+
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:blogSlug" element={<BlogDetail />} />
-        <Route path="/post" element={<SinglePost />} />
-        <Route path="/pages" element={<Pages />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <UserContext.Provider value={{ darkMode, setDarkMode, user, setUser }}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:blogSlug" element={<BlogDetail />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/pages" element={<Pages />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </UserContext.Provider>
   );
 }
 
