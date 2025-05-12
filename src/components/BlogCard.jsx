@@ -1,6 +1,4 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-
 const BlogCard = ({ title, content, blogImage, author, date, tags, upvote }) => {
   const navigate = useNavigate();
 
@@ -16,11 +14,15 @@ const BlogCard = ({ title, content, blogImage, author, date, tags, upvote }) => 
 
   return (
     <div
-      className="flex flex-col p-2 bg-gray-50 border-blue-400 rounded-md cursor-pointer"
+      className="flex flex-col p-2 bg-gray-200 rounded-md cursor-pointer"
       onClick={handleClick}
+      initial={{ x: 100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -100, opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
     >
       <img src={blogImage} alt={title} className="rounded-md" />
-      <div className="tags">{tags[0]}</div>
+      <div className="tags">{tags.join(', ')}</div>
       <div className="font-medium blog-title">{title} <span> &nbsp; ⬆️{upvote}</span>
       </div>
       <div className="flex justify-between items-center blog-author">

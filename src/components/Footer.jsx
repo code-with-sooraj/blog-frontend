@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { useState, useContext } from "react";
-import  UserContext  from "../CreateContext";
+import  UserContext  from "../context/CreateContext";
 
 const Footer = () => {
   const [thankYou, setThankYou] = useState(false);
-  const { darkMode, setDarkMode, user, setUser } = useContext(UserContext);
+  const { darkMode } = useContext(UserContext);
   const handleSubscribe = (e)=>{
     e.preventDefault();
     setThankYou(true);
@@ -48,7 +48,7 @@ const Footer = () => {
         <div>
           <h2 className={`text-lg font-semibold ${darkMode ? "text-white" : "text-black"}`}>Newsletter</h2>
           <p className={`text-sm mb-2 ${darkMode ? "text-white" : "text-gray-600"}`}>Subscribe to get the latest updates.</p>
-          <form className="flex flex-col sm:flex-row items-center relative space-y-2 sm:space-y-0" onSubmit={handleSubscribe}>
+          <form className="flex flex-col gap-4 items-center space-y-2 sm:space-y-0" onSubmit={handleSubscribe}>
             <Mail className="absolute left-3 top-3 text-gray-400" size={16} />
             <input
               type="email"

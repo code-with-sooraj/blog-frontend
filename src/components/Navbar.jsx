@@ -1,7 +1,9 @@
 import { Link,NavLink } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { useState, useEffect, useContext } from "react";
+import { motion } from "framer-motion";
 import { Sun, Moon, Search, Menu, X } from "lucide-react";
-import UserContext from "../CreateContext";
+import UserContext from "../context/CreateContext";
 import Cookies from "js-cookie";
 import axios from "axios";
 import '../index.css';
@@ -17,14 +19,31 @@ const Navbar = () => {
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
   const [loggingOut, setLoggingOut] = useState(false);
-  const { darkMode, setDarkMode, user, setUser } = useContext(UserContext);
+  const { darkMode, setDarkMode, user, setUser, blogs, setBlogs } = useContext(UserContext);
 
   useEffect(() => {
-    const loggedInUser = Cookies.get("username");
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
+    const fetchData = async () => {
+      try {
+        const loggedInUser = Cookies.get("username");
+        if (loggedInUser) {
+          setUser(loggedInUser);
+        }
+
+        const response = await axios.get('http://localhost:3000/api/v1/blog/get-all-blogs');
+        const data = response.data;
+        if (response.status === 200) {
+          setBlogs(data);
+        } else {
+          console.error("Error fetching blogs:", data.message);
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    };
+
+    fetchData(); // call the async function
   }, []);
+
 
   const toggleMode = () => {
     setDarkMode(!darkMode);
@@ -143,7 +162,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`flex items-center justify-between px-6 py-4 ${darkMode ? "bg-gray-900" : "bg-gray-200"} `}>
+      <nav className={`fixed top-0 z-10 h-15 w-full flex items-center justify-between px-6 py-4 ${darkMode ? "bg-gray-900" : "bg-gray-200"} `}>
         <Link to="/" className={`text-xl font-bold  ${darkMode ? "text-white" : "text-black"}`}>AlgoReads</Link>
         <ul className={`hidden md:flex space-x-6 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
           <li>
@@ -247,8 +266,8 @@ const Navbar = () => {
       )}
 
       {/* Login Overlay */}
-      {loginOverlay && (
-        <div className="fixed inset-0 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md">
+      {loginOverlay && ( <AnimatePresence>
+        <motion.div className="fixed inset-0 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md z-11" key="modal" exit={{ opacity: 0 }}>
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-80 relative">
             <button onClick={() => setLoginOverlay(false)} className="absolute top-2 right-2 text-gray-300">
               <X size={24} />
@@ -281,9 +300,14 @@ const Navbar = () => {
                 </p>
               )}
 
-              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">
+              <motion.button 
+                type="submit" 
+                className="py-2 text-white cursor-pointer rounded-[30px] bg-[#00ccff]"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
                 {loading ? "Logging in..." : "Login"}
-              </button>
+              </motion.button>
             </form>
 
             <div className="flex justify-between mt-4">
@@ -291,12 +315,12 @@ const Navbar = () => {
               <button onClick={() => { setSignUpOverlay(true); setLoginOverlay(false); }} className="text-red-500 mb-0.5">Sign Up</button>
             </div>
           </div>
-        </div>
+        </motion.div> </AnimatePresence>
       )}
 
       {/* Forgot Password Overlay */}
       {forgotOverlay && (
-        <div className="fixed inset-0 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md">
+        <div className="fixed inset-0 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md z-11">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-80 relative">
             <button onClick={() => setForgotOverlay(false)} className="absolute top-2 right-2 text-gray-300">
               <X size={24} />
@@ -304,7 +328,13 @@ const Navbar = () => {
             <h2 className="text-xl font-semibold mb-4 text-white">Forgot Password</h2>
             <form className="flex flex-col">
               <input type="email" placeholder="Enter Email" className="p-2 mb-3 border rounded-md bg-gray-700 text-white outline-none border-none" required />
-              <button type="submit" className="py-2 bg-blue-500 text-white rounded-md">Reset Password</button>
+              <motion.button type="submit" 
+                className="py-2 text-white cursor-pointer rounded-[30px] bg-[#00ccff]"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                disabled={loading}
+              >Reset Password
+              </motion.button>
             </form>
             <div className="flex justify-between mt-4">
               <button onClick={() => { setLoginOverlay(true); setForgotOverlay(false); }} className="text-red-500 mb-0.5">Login</button>
@@ -316,7 +346,7 @@ const Navbar = () => {
 
       {/* Sign Up Overlay */}
       {signUpOverlay && (
-        <div className="fixed inset-0 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md">
+        <div className="fixed inset-0 z-11 bg-transparent bg-opacity-20 flex items-center justify-center backdrop-blur-md">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-80 relative">
             <button onClick={() => setSignUpOverlay(false)} className="absolute top-2 right-2 text-gray-300">
               <X size={24} />
@@ -358,9 +388,11 @@ const Navbar = () => {
                 </p>
               )}
 
-              <button
+              <motion.button
                 type="submit"
-                className={`py-2 bg-blue-500 text-white rounded-md flex justify-center items-center`}
+                className="py-2 text-white cursor-pointer rounded-[30px] bg-[#00ccff]"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 disabled={loading}
               >
                 {loading ? (
@@ -387,7 +419,7 @@ const Navbar = () => {
                 ) : (
                   "Create Account"
                 )}
-              </button>
+              </motion.button>
             </form>
             <div className="flex justify-between mt-4">
               <button onClick={() => { setLoginOverlay(true); setSignUpOverlay(false); }} className="text-red-500 mb-0.5">Login</button>
