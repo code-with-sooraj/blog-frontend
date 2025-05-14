@@ -3,10 +3,10 @@ import { AnimatePresence } from "framer-motion";
 import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Search, Menu, X } from "lucide-react";
+import BACKEND_IP  from "../context/Backend";
 import UserContext from "../context/CreateContext";
 import Cookies from "js-cookie";
 import axios from "axios";
-import '../index.css';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ const Navbar = () => {
           setUser(loggedInUser);
         }
 
-        const response = await axios.get('http://localhost:3000/api/v1/blog/get-all-blogs');
+        const response = await axios.get(`${BACKEND_IP}/api/v1/blog/get-all-blogs`);
         const data = response.data;
         if (response.status === 200) {
           setBlogs(data);
@@ -65,7 +65,7 @@ const Navbar = () => {
     const password = e.target.password.value;
   
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/auth/login', 
+      const response = await axios.post(`${BACKEND_IP}/api/v1/auth/login`, 
         { email, password },
         { withCredentials: true }
       );
@@ -125,7 +125,7 @@ const Navbar = () => {
 
     try {
       const data = { name, email, password };
-      const response = await axios.post('http://localhost:3000/api/v1/auth/signup', data, {
+      const response = await axios.post(`${BACKEND_IP}/api/v1/auth/signup`, data, {
         withCredentials: true,
       });      
 
